@@ -1,12 +1,12 @@
 const routes = (handler) => [
     {
         method: 'POST',
-        path: '/wishlists',
+        path: '/wishlist',
         handler: handler.postWishlistHandler,
     },
     {
         method: 'DELETE',
-        path: '/wishlists',
+        path: '/wishlist',
         handler: handler.deleteWishlistHandler,
     },
   ];
