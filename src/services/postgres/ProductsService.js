@@ -3,7 +3,7 @@ const { nanoid } = require("nanoid");
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
-class ProductService {
+class ProductsService {
     constructor() {
       this._pool = new Pool();
     }
@@ -78,4 +78,4 @@ class ProductService {
     }
 }
 
-module.exports = ProductService;
+module.exports = ProductsService;

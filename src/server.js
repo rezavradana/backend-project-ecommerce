@@ -1,11 +1,18 @@
+require('dotenv').config();
 const Hapi = require("@hapi/hapi");
 
 // Products
 const products = require('./api/products');
-const ProductService = require('./services/postgres/ProductsService');
+const ProductsService = require('./services/postgres/ProductsService');
+const ProductsValidator = require('./validator/products');
+
+// Wishlists
+const wishlists = require('./api/wishlists');
+const WishlistsService = require('./services/postgres/WishlistsService')
 
 const init = async () => {
-	const productsService = new ProductService();
+	const productsService = new ProductsService();
+	const wishlistsService = new WishlistsService();
 
 	const server = Hapi.server({
 		port: process.env.PORT,
@@ -22,6 +29,13 @@ const init = async () => {
 			plugin: products,
 			options: {
 			  service: productsService,
+			  validator: ProductsValidator,
+			},
+		},
+		{
+			plugin: wishlists,
+			options: {
+			  service: wishlistsService,
 			},
 		},
 	])

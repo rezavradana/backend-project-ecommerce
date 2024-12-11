@@ -16,7 +16,7 @@ class ProductsHandler {
         const response = h.response({
             status: 'success',
             data: {
-              userId,
+              productId,
             },
         });
       
