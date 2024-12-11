@@ -18,6 +18,10 @@ const AuthenticationsService = require("./services/postgres/AuthenticationsServi
 const TokenManager = require("./tokenize/TokenManager");
 const AuthenticationsValidator = require("./validator/authentications");
 
+// ? Registrations
+const registrations = require("./api/registrations");
+const RegistersValidator = require("./validator/registrations");
+
 const init = async () => {
 	const productsService = new ProductService();
 	const usersService = new UsersService();
@@ -81,6 +85,13 @@ const init = async () => {
 				validator: AuthenticationsValidator,
 			},
 		},
+		{
+               plugin: registrations,
+               options: {
+                    service: usersService,
+                    validator: RegistersValidator,
+               },
+          },
 	])
 
 	await server.start();
