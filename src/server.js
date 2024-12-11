@@ -27,11 +27,16 @@ const ProductsValidator = require('./validator/products');
 const wishlists = require('./api/wishlists');
 const WishlistsService = require('./services/postgres/WishlistsService')
 
+// ? Categories
+const categories = require('./api/categories');
+const CategoriesService = require('./services/postgres/CategoriesService');
+
 const init = async () => {
 	const usersService = new UsersService();
 	const authenticationsService = new AuthenticationsService();
 	const productsService = new ProductsService();
 	const wishlistsService = new WishlistsService();
+	const categoriesService = new CategoriesService();
 
 	const server = Hapi.server({
 		port: process.env.PORT,
@@ -103,6 +108,12 @@ const init = async () => {
 			plugin: wishlists,
 			options: {
 			  service: wishlistsService,
+			},
+		},
+		{
+			plugin: categories,
+			options: {
+			  service: categoriesService,
 			},
 		},
 	])
