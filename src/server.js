@@ -8,7 +8,9 @@ const products = require('./api/products');
 const ProductService = require('./services/postgres/ProductsService');
 
 // ? Users
+const users = require("./api/users");
 const UsersService = require("./services/postgres/UsersServices");
+const UsersValidator = require("./validator/users");
 
 // ? Authentications
 const authentications = require("./api/authentications");
@@ -61,6 +63,13 @@ const init = async () => {
 			plugin: products,
 			options: {
 				service: productsService,
+			},
+		},
+		{
+			plugin: users,
+			options: {
+				service: usersService,
+				validator: UsersValidator,
 			},
 		},
 		{
