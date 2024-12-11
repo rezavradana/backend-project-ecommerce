@@ -1,0 +1,31 @@
+{
+  "name": "backend-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "node src/server.js",
+    "start:prod": "nodemon ./src/server.js",
+    "migrate": "node-pg-migrate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^21.3.9",
+    "@hapi/inert": "^7.1.0",
+    "@hapi/jwt": "^3.2.0",
+    "amqplib": "^0.10.4",
+    "auto-bind": "^4.0.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "joi": "^17.13.3",
+    "nanoid": "^3.3.7",
+    "node-pg-migrate": "^7.6.1",
+    "pg": "^8.12.0",
+    "redis": "^4.7.0"
+  }
+}
