@@ -14,10 +14,6 @@ const AuthenticationsService = require("./services/postgres/AuthenticationsServi
 const TokenManager = require("./tokenize/TokenManager");
 const AuthenticationsValidator = require("./validator/authentications");
 
-// ? Registrations
-const registrations = require("./api/registrations");
-const RegistersValidator = require("./validator/registrations");
-
 // ? Products
 const products = require('./api/products');
 const ProductsService = require('./services/postgres/ProductsService');
@@ -91,13 +87,6 @@ const init = async () => {
 			},
 		},
 		{
-			plugin: registrations,
-			options: {
-				service: usersService,
-				validator: RegistersValidator,
-			},
-        },
-		{
 			plugin: products,
 			options: {
 				service: productsService,
@@ -107,13 +96,13 @@ const init = async () => {
 		{
 			plugin: wishlists,
 			options: {
-			  service: wishlistsService,
+				service: wishlistsService,
 			},
 		},
 		{
 			plugin: categories,
 			options: {
-			  service: categoriesService,
+				service: categoriesService,
 			},
 		},
 	])

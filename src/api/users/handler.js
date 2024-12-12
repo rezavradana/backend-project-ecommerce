@@ -8,7 +8,7 @@ class UsersHandler {
           autoBind(this);
      }
 
-     async postUserHandler(request, h) {
+     async postRegistrationHandler(request, h) {
           this._validator.validateUserPayload(request.payload);
 
           const { username, email, password } = request.payload;
