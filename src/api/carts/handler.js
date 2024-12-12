@@ -1,6 +1,6 @@
 const autoBind = require('auto-bind');
 
-class CartsHandler {
+class CartHandler {
     constructor(service) {
         this._service = service;
     
@@ -53,7 +53,7 @@ class CartsHandler {
     async deleteCartHandler(request, h) {
         const { id: userId } = request.auth.credentials;
         
-        await this._service.deleteItemInCart(userId);
+        await this._service.deleteItemInCart(userId, request.payload);
 
         return {
           status: 'success',
@@ -62,4 +62,4 @@ class CartsHandler {
     }
 }
 
-module.exports = CartsHandler;
+module.exports = CartHandler;

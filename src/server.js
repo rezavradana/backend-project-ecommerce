@@ -2,6 +2,7 @@ require('dotenv').config();
 const Hapi = require("@hapi/hapi");
 const Jwt = require("@hapi/jwt");
 const Inert = require("@hapi/inert");
+const ClientError = require('./exceptions/ClientError');
 
 // ? Users
 const users = require("./api/users");
@@ -23,6 +24,10 @@ const ProductsValidator = require('./validator/products');
 const wishlists = require('./api/wishlists');
 const WishlistsService = require('./services/postgres/WishlistsService')
 
+// ? Carts
+const carts = require('./api/carts');
+const CartsService = require('./services/postgres/CartsService');
+
 // ? Categories
 const categories = require('./api/categories');
 const CategoriesService = require('./services/postgres/CategoriesService');
@@ -32,6 +37,7 @@ const init = async () => {
 	const authenticationsService = new AuthenticationsService();
 	const productsService = new ProductsService();
 	const wishlistsService = new WishlistsService();
+	const cartsService = new CartsService();
 	const categoriesService = new CategoriesService();
 
 	const server = Hapi.server({
@@ -97,6 +103,12 @@ const init = async () => {
 			plugin: wishlists,
 			options: {
 				service: wishlistsService,
+			},
+		},
+		{
+			plugin: carts,
+			options: {
+				service: cartsService,
 			},
 		},
 		{

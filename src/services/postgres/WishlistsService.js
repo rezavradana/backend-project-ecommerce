@@ -28,7 +28,7 @@ class WishlistsService {
 
     async isProductInWishlist(userId, productId) {
       const query = {
-        text: 'SELECT COUNT(*) FROM wishlists WHERE user_id = $1 AND product_id = $2',
+        text: 'SELECT * FROM wishlists WHERE user_id = $1 AND product_id = $2',
         values: [userId, productId],
       };
 

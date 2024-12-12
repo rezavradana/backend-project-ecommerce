@@ -12,7 +12,7 @@ class CartsService {
         const id = `cart-${nanoid(16)}`;
         const createdAt = new Date().toISOString();
         const query = {
-            text: 'INSERT INTO carts VALUES($1, $2, $3, $4, $5) RETURNING id',
+            text: 'INSERT INTO cart VALUES($1, $2, $3, $4, $5) RETURNING id',
             values: [id, userId, productId, quantity, createdAt]
         };
 
@@ -55,15 +55,17 @@ class CartsService {
         }
     }
 
-    async deleteItemInCart(userId) {
+    async deleteItemInCart(userId, { productId }) {
         const query = {
           text: `
                 DELETE FROM cart
-                WHERE user_id = $1 AND product_id = $2 RETURNING id`,
-          values: [userId],
+                WHERE user_id = $1 AND product_id = $2`,
+          values: [userId, productId],
         };
+        
         const result = await this._pool.query(query);
-        if (!result.rows.length) {
+        
+        if (!result.rowCount) {
             throw new NotFoundError('Keranjang gagal dihapus. Id tidak ditemukan');
         }
     }

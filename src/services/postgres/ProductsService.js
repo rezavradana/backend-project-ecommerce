@@ -53,7 +53,7 @@ class ProductsService {
     async editProductById(id, { name, description, price, stock, imageUrl }) {
         const updatedAt = new Date().toISOString();
         const query = {
-            text: 'UPDATE products SET name = $1, description = $2, price = $3, stock = $4, image_url = $5, updated_at = $6 WHERE id = $7',
+            text: 'UPDATE products SET name = $1, description = $2, price = $3, stock = $4, image_url = $5, updated_at = $6 WHERE id = $7 RETURNING id',
             values: [name, description, price, stock, imageUrl, updatedAt, id]
         };
 
@@ -72,7 +72,7 @@ class ProductsService {
       
         const result = await this._pool.query(query);
     
-        if (!result.rows.length) {
+        if (!result.rowCount) {
             throw new NotFoundError('Product gagal dihapus. Id tidak ditemukan');
         }
     }
