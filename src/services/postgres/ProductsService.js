@@ -13,7 +13,7 @@ class ProductsService {
         const createdAt = new Date().toISOString();
         const updatedAt = createdAt;
         const query = {
-            text: 'INSERT INTO products VALUES($1, $2, $3, $4, $5, $6) RETURNING id',
+            text: 'INSERT INTO products VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id',
             values: [id, name, description, price, stock, imageUrl, createdAt, updatedAt]
         };
 

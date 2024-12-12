@@ -45,6 +45,12 @@ exports.up = (pgm) => {
           onDelete: 'CASCADE', // Jika produk dihapus, data wishlist terkait juga dihapus
         }
     });
+
+    pgm.addConstraint(
+      'wishlists',
+      'unique_user_id_product_id',
+      'UNIQUE(user_id, product_id)'
+    );
 };
 
 /**
@@ -56,6 +62,8 @@ exports.down = (pgm) => {
     // Menghapus constraint foreign key terlebih dahulu
     pgm.dropConstraint('wishlists', 'fk_wishlists_product_id');
     pgm.dropConstraint('wishlists', 'fk_wishlists_user_id');
+    
+    pgm.dropConstraint('wishlists', 'unique_user_id_product_id');
 
     // Menghapus tabel wishlists
     pgm.dropTable('wishlists');

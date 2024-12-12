@@ -31,8 +31,10 @@ class WishlistsService {
         text: 'SELECT COUNT(*) FROM wishlists WHERE user_id = $1 AND product_id = $2',
         values: [userId, productId],
       };
+
       const result = await this._pool.query(query);
-      if (!result.rows.length) {
+      
+      if (result.rows.length) {
         throw new InvariantError('Produk telah terdapat di wishlist');
       }
     }
