@@ -27,7 +27,7 @@ class CartsService {
 
     async getCart(userId) {
         const query = {
-            // query sql masih contoh
+          // query sql masih contoh
           text: `
             SELECT c.id, c.product_id, c.quantity, c.created_at, p.name AS product_name, p.price AS product_price
             FROM cart c
