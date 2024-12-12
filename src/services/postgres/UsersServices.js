@@ -58,7 +58,7 @@ class UsersService {
 
      async verifyUserCredential(email, password) {
           const query = {
-               text: "SELECT id, password FROM users WHERE email = $1",
+               text: "SELECT id, email, password FROM users WHERE email = $1",
                values: [email],
           };
 
