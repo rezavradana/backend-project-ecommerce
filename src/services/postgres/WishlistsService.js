@@ -26,6 +26,21 @@ class WishlistsService {
       return result.rows[0].id;
     }
 
+    async getWishlist(userId) {
+      const query = {
+        text: 'SELECT wishlists.id, products.id, products.name, products.price, products.image_url FROM wishlists JOIN products ON wishlists.product_id = products.id WHERE wishlists.user_id = $1',
+        values: [userId],
+      };
+
+      const result = await this._pool.query(query);
+
+      if (!result.rows.length) {
+        throw new NotFoundError('Gagal mendapatkan produk. ID tidak ditemukan');
+      }
+
+      return result.rows;
+    } 
+
     async isProductInWishlist(userId, productId) {
       const query = {
         text: 'SELECT * FROM wishlists WHERE user_id = $1 AND product_id = $2',
@@ -34,19 +49,22 @@ class WishlistsService {
 
       const result = await this._pool.query(query);
       
-      if (result.rows.length) {
-        throw new InvariantError('Produk telah terdapat di wishlist');
+      if (!result.rows.length) {
+        return false;
       }
+
+      return true;
     }
 
     async deleteWishlist(userId, productId) {
       const query = {
-        text: 'DELETE FROM wishlists WHERE user_id = $1 AND product_id = $2 RETURNING id',
+        text: 'DELETE FROM wishlists WHERE user_id = $1 AND product_id = $2',
         values: [userId, productId],
       };
 
-      const result = await this._pool.query(query)
-      if (!result.rows.length) {
+      const result = await this._pool.query(query);
+
+      if (!result.rowCount) {
         throw new NotFoundError('Product gagal dihapus. Id tidak ditemukan');
       }
     }
