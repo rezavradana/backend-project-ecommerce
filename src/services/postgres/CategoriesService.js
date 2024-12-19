@@ -105,10 +105,11 @@ class CategoriesService {
       async getProductsByCategoryId(categoryId) {
         const query = {
           text: `
-            SELECT p.id, p.name, p.description, p.price 
+            SELECT p.id, p.name, p.stock, p.price, p.image_url, c.name AS category_name
             FROM products p
             JOIN product_categories pc ON p.id = pc.product_id
-            WHERE pc.category_id = $1
+            JOIN categories c ON pc.category_id = c.id
+            WHERE pc.category_id = $1;
           `,
           values: [categoryId],
         };
