@@ -32,6 +32,14 @@ const CartsService = require('./services/postgres/CartsService');
 const categories = require('./api/categories');
 const CategoriesService = require('./services/postgres/CategoriesService');
 
+// ? Orders
+const orders = require('./api/orders');
+const OrdersService = require('./services/postgres/OrdersService');
+
+// ? Payments
+const payments = require('./api/payments');
+const PaymentsService = require('./services/postgres/PaymentsService');
+
 const init = async () => {
 	const usersService = new UsersService();
 	const authenticationsService = new AuthenticationsService();
@@ -39,6 +47,8 @@ const init = async () => {
 	const wishlistsService = new WishlistsService();
 	const cartsService = new CartsService();
 	const categoriesService = new CategoriesService();
+	const ordersService = new OrdersService();
+	const paymentsService = new PaymentsService();
 
 	const server = Hapi.server({
 		port: process.env.PORT,
@@ -115,6 +125,18 @@ const init = async () => {
 			plugin: categories,
 			options: {
 				service: categoriesService,
+			},
+		},
+		{
+			plugin: orders,
+			options: {
+				service: ordersService,
+			},
+		},
+		{
+			plugin: payments,
+			options: {
+				service: paymentsService,
 			},
 		},
 	])

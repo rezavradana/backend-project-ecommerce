@@ -29,7 +29,7 @@ class CartsService {
         const query = {
           // query sql masih contoh
           text: `
-            SELECT c.id, c.product_id, c.quantity, c.created_at, p.name AS product_name, p.price AS product_price, p.image_url AS image_url
+            SELECT c.id, c.product_id, c.quantity, c.created_at, p.name AS product_name, p.price AS product_price, p.image_url AS image_url, p.stock AS product_stock
             FROM cart c
             JOIN products p ON c.product_id = p.id
             WHERE c.user_id = $1`,
