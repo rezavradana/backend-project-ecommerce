@@ -23,7 +23,7 @@ class AuthenticationsHandler {
 
 		const accessToken = this._tokenManager.generateAccessToken({ id });
           const refreshToken = this._tokenManager.generateRefreshToken({ id });
-               await this._authenticationsService.addRefreshToken(refreshToken);
+          await this._authenticationsService.addRefreshToken(refreshToken);
 
           const response = h.response({
                status: "success",
@@ -42,17 +42,17 @@ class AuthenticationsHandler {
           this._validator.validatePutAuthenticationPayload(request.payload);
           
           const { refreshToken } = request.payload;
-               await this._authenticationsService.verifyRefreshToken(refreshToken);
+          await this._authenticationsService.verifyRefreshToken(refreshToken);
           const { id } = this._tokenManager.verifyRefreshToken(refreshToken);
 
           const accessToken = this._tokenManager.generateAccessToken({ id });
-               return h.response({
-                    status: "success",
-                    message: "Token diperbarui",
-                    data: {
-                         accessToken,
-                    },
-               }).code(200);
+          return h.response({
+               status: "success",
+               message: "Token diperbarui",
+               data: {
+                    accessToken,
+               },
+          }).code(200);
      }
 
      async deleteAuthenticationHandler(request, h) {
@@ -60,10 +60,10 @@ class AuthenticationsHandler {
           const { refreshToken } = request.payload;
 
           await this._authenticationsService.deleteRefreshToken(refreshToken);
-               return h.response({
-                    status: "success",
-                    message: "Refresh token dihapus",
-               }).code(200);
+          return h.response({
+               status: "success",
+               message: "Refresh token dihapus",
+          }).code(200);
      }
 }
 
